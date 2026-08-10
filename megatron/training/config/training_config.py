@@ -532,6 +532,16 @@ class CheckpointConfig:
     async_ckpt_io_priority: Optional[int] = 3
     """I/O scheduling class (0-3, 3=idle) for the async checkpoint writer process."""
 
+    ckpt_free_memory: bool = False
+    """Free the overlap param-gather buffers and release cached GPU memory with
+    torch.cuda.empty_cache() before every checkpoint save. This gives the async checkpoint
+    worker process more GPU headroom for D2H tensor transfers, at the cost of multiple
+    seconds per save. Prefer tuning the caching allocator before enabling this; for example,
+    setting PYTORCH_ALLOC_CONF to
+    "garbage_collection_threshold:0.8,roundup_power2_divisions:true,max_non_split_rounding_mb:1024"
+    reclaims memory at 80% GPU allocation with lower overhead than a raw empty_cache() call and
+    uses larger blocks to limit fragmentation in the first place."""
+
     async_ckpt_use_cpu_shm: bool = False
     """Copy GPU tensors to CPU shared-memory in the training process before handing off to
     the async checkpoint worker. Avoids CUDA IPC / NVLink fabric handles in the worker
