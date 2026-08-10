@@ -532,7 +532,7 @@ class CheckpointConfig:
     async_ckpt_io_priority: Optional[int] = 3
     """I/O scheduling class (0-3, 3=idle) for the async checkpoint writer process."""
 
-    ckpt_free_memory: bool = False
+    ckpt_release_gpu_memory: bool = False
     """Free the overlap param-gather buffers and release cached GPU memory with
     torch.cuda.empty_cache() before every checkpoint save. This gives the async checkpoint
     worker process more GPU headroom for D2H tensor transfers, at the cost of multiple

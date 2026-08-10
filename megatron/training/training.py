@@ -2968,7 +2968,7 @@ def save_checkpoint_and_time(
 
     # Log E2E metrics before save-checkpoint
     one_logger_utils.track_e2e_metrics()
-    if args.ckpt_free_memory:
+    if args.ckpt_release_gpu_memory:
         # Free overlap param-gather buffers and release cached GPU memory so
         # that the async checkpoint worker process has enough GPU headroom for
         # D2H tensor transfers. Both calls are expensive (multiple seconds per

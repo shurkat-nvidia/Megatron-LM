@@ -131,7 +131,7 @@ MODEL_ARGS:
   --async-save: true
   --async-strategy: nvrx
   --async-ckpt-use-cpu-shm: true
-  --ckpt-free-memory: true
+  --ckpt-release-gpu-memory: true
   --use-persistent-ckpt-worker: true
   --save-interval: 100
   --save-retain-interval: 2000
